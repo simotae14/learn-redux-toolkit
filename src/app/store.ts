@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../features/counter/counter-slice";
-import { apiSlice } from "../features/dogs/dogs-api-slice";
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from '../features/counter/counter-slice';
+import { apiSlice } from '../features/dogs/dogs-api-slice';
 
 export const store = configureStore({
   reducer: {
@@ -13,4 +13,4 @@ export const store = configureStore({
 });
 
 export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;  // this is the type of the state that is returned from the store
+export type RootState = ReturnType<typeof store.getState>;
