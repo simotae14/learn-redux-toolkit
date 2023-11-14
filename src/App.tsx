@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from './app/hooks'
-import { incremented } from './features/counter/counter-slice'
+import { incremented, amountAdded } from './features/counter/counter-slice'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -11,6 +11,12 @@ function App() {
 
   const handleClick = () => {
     dispatch(incremented());
+  }
+
+  const amount = 10;
+
+  const handleClickAmountAdded = (amount: number) => {
+    dispatch(amountAdded(amount));
   }
 
   return (
@@ -29,6 +35,16 @@ function App() {
           onClick={handleClick}
         >
           count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <div className="card">
+        <button
+          onClick={() => handleClickAmountAdded(amount)}
+        >
+          count added with {amount} is {count}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR

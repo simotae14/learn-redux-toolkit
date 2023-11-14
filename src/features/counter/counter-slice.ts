@@ -18,10 +18,14 @@ const counterSlice = createSlice({
       // it is ok to add this because Immer makes it work under the hood
       state.value++;
     },
+    // amountAdded
+    amountAdded(state, action: PayloadAction<number>) {
+      state.value += action.payload;
+    }
     // decrement
     // reset
   },
 });
 
-export const { incremented } = counterSlice.actions;
+export const { incremented, amountAdded } = counterSlice.actions;
 export default counterSlice.reducer;
