@@ -5,30 +5,27 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 
-import { createApi, ApiProvider } from '@reduxjs/toolkit/query/react'
+import { createApi, ApiProvider, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 
 const api = createApi({
-  baseQuery: async (url) => {
-    const result = await fetch(url);
-    // error handling
-    if (result.ok) {
-      const data = await result.json();
-      return { data };
-    } else {
-      return { error: "something went wrong" }
-    } 
-  },
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://pokeapi.co/api/v2/"
+  }),
   endpoints: (build) => ({
     pokemonList: build.query({
       query() {
-        return "https://pokeapi.co/api/v2/pokemon?limit=9"
+        return {
+          url: 'pokemon',
+          params: {
+            limit: 9
+          },
+          method: 'GET'
+        }
       },
     }),
     pokemonDetail: build.query({
-      query({ name }) {
-        return `https://pokeapi.co/api/v2/pokemon/${name}/`;
-      },
+      query: ({ name }) =>`pokemon/${name}/`,
     }),
   }),
 });
