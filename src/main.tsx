@@ -1,30 +1,38 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { Provider } from 'react-redux'
-import { store } from './app/store'
+//import { Provider } from 'react-redux'
+//import { store } from './app/store'
 import App from './App.tsx'
 import './index.css'
 
-import { fakePokemonDetailData, fakePokemonListing } from './utils/fakeData.ts'
 import { createApi, ApiProvider } from '@reduxjs/toolkit/query/react'
 
-function simulateLoading() {
-  return new Promise((resolve) => setTimeout(resolve, 500));
-}
 
 const api = createApi({
   baseQuery: () => {},
   endpoints: (build) => ({
     pokemonList: build.query({
       async queryFn() {
-        await simulateLoading();
-        return { data: fakePokemonListing };
+        const result = await fetch("https://pokeapi.co/api/v2/pokemon?limit=9");
+        // error handling
+        if (result.ok) {
+          const data = await result.json();
+          return { data };
+        } else {
+          return { error: "something went wrong" }
+        } 
       },
     }),
     pokemonDetail: build.query({
       async queryFn() {
-        await simulateLoading();
-        return { data: fakePokemonDetailData };
+        const result = await fetch("https://pokeapi.co/api/v2/pokemon/1/");
+        // error handling
+        if (result.ok) {
+          const data = await result.json();
+          return { data };
+        } else {
+          return { error: "something went wrong" }
+        } 
       },
     }),
   }),
