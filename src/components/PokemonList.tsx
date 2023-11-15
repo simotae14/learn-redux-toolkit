@@ -2,10 +2,10 @@ import React from 'react'
 
 import { usePokemonListQuery } from '../main';
 
-export default function PokemonList({ onPokemonSelected }: () => void) {
-  const { isLoading, isError, isSuccess, data } = usePokemonListQuery();
+export default function PokemonList({ onPokemonSelected }: {onPokemonSelected: (name: string) => void }) {
+  const { isLoading, isError, data, isUninitialized } = usePokemonListQuery();
 
-  if (isLoading) {
+  if (isLoading || isUninitialized) {
     return <p>loading, please wait</p>;
   }
 
@@ -13,20 +13,19 @@ export default function PokemonList({ onPokemonSelected }: () => void) {
     return <p>something went wrong</p>;
   }
 
-  if (isSuccess) {
-    return (
-      <article>
-        <h2>Overview</h2>
-        <ol start={1}>
-          {data.results.map((pokemon) => (
-            <li key={pokemon.name}>
-              <button onClick={() => onPokemonSelected(pokemon.name)}>
-                {pokemon.name}
-              </button>
-            </li>
-          ))}
-        </ol>
-      </article>
-    )
-  }
+
+  return (
+    <article>
+      <h2>Overview</h2>
+      <ol start={1}>
+        {data.results.map((pokemon) => (
+          <li key={pokemon.name}>
+            <button onClick={() => onPokemonSelected(pokemon.name)}>
+              {pokemon.name}
+            </button>
+          </li>
+        ))}
+      </ol>
+    </article>
+  )
 }

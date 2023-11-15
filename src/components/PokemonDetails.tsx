@@ -8,11 +8,11 @@ const listFormatter = new Intl.ListFormat("en-GB", {
 });
 
 export default function PokemonDetails({ pokemonName }: { pokemonName: string }) {
-  const { isLoading, isError, isSuccess, data } = usePokemonDetailQuery({
+  const { isLoading, isError, data, isUninitialized } = usePokemonDetailQuery({
     name: pokemonName
   });
 
-  if (isLoading) {
+  if (isLoading || isUninitialized) {
     return <p>loading, please wait</p>;
   }
 
@@ -20,21 +20,19 @@ export default function PokemonDetails({ pokemonName }: { pokemonName: string })
     return <p>something went wrong</p>;
   }
 
-  if (isSuccess) {
-    return (
-      <article>
-        <h2>{data.name}</h2>
-        <img src={data.sprites.front_default} alt={data.name} />
-        <ul>
-          <li>id: {data.id}</li>
-          <li>height: {data.height}</li>
-          <li>weight: {data.weight}</li>
-          <li>
-            types:
-            {listFormatter.format(data.types.map((item) => item.type.name))}
-          </li>
-        </ul>
-      </article>
-    )
-  }
+  return (
+    <article>
+      <h2>{data.name}</h2>
+      <img src={data.sprites.front_default} alt={data.name} />
+      <ul>
+        <li>id: {data.id}</li>
+        <li>height: {data.height}</li>
+        <li>weight: {data.weight}</li>
+        <li>
+          types:
+          {listFormatter.format(data.types.map((item) => item.type.name))}
+        </li>
+      </ul>
+    </article>
+  )
 }

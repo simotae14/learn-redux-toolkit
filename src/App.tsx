@@ -28,7 +28,7 @@ function App() {
   }
   */
 
-  const [selectedPokemon, selectPokemon] = React.useState(undefined);
+  const [selectedPokemon, selectPokemon] = React.useState<string | undefined>(undefined);
 
   return (
     <>

@@ -7,13 +7,38 @@ import './index.css'
 
 import { createApi, ApiProvider, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+interface PokemonListing {
+  count: number;
+  results: Array<{
+    name: string;
+    url: string;
+  }>
+}
+interface PokemonDetailData {
+  id: number;
+  name: string;
+  height: number;
+  weight: number;
+  types: Array<{
+    slot: number;
+    type: {
+      name: string;
+      url: string;
+    }
+  }>,
+  sprites: {
+    front_default: string;
+  }
+}
+
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://pokeapi.co/api/v2/"
   }),
   endpoints: (build) => ({
-    pokemonList: build.query({
+    // void means no arguments
+    pokemonList: build.query<PokemonListing, void>({
       query() {
         return {
           url: 'pokemon',
@@ -24,11 +49,13 @@ const api = createApi({
         }
       },
     }),
-    pokemonDetail: build.query({
+    pokemonDetail: build.query<PokemonDetailData, { name: string }>({
       query: ({ name }) =>`pokemon/${name}/`,
     }),
   }),
 });
+
+
 
 // it creates two hooks for us
 export const { usePokemonListQuery, usePokemonDetailQuery } = api;
