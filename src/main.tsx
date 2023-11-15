@@ -24,8 +24,8 @@ const api = createApi({
       },
     }),
     pokemonDetail: build.query({
-      async queryFn() {
-        const result = await fetch("https://pokeapi.co/api/v2/pokemon/1/");
+      async queryFn({ name }) {
+        const result = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}/`);
         // error handling
         if (result.ok) {
           const data = await result.json();

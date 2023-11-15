@@ -8,7 +8,9 @@ const listFormatter = new Intl.ListFormat("en-GB", {
 });
 
 export default function PokemonDetails({ pokemonName }: { pokemonName: string }) {
-  const { isLoading, isError, isSuccess, data } = usePokemonDetailQuery();
+  const { isLoading, isError, isSuccess, data } = usePokemonDetailQuery({
+    name: pokemonName
+  });
 
   if (isLoading) {
     return <p>loading, please wait</p>;
