@@ -5,6 +5,8 @@ import { useFetchBreedsQuery } from './features/dogs/dogs-api-slice';
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import PokemonList from './components/PokemonList';
+import PokemonDetails from './components/PokemonDetails';
 
 function App() {
   // grab current count from the store
@@ -23,6 +25,8 @@ function App() {
   const handleClickAmountAdded = (amount: number) => {
     dispatch(amountAdded(amount));
   }
+
+  const [selectedPokemon, selectPokemon] = React.useState(undefined);
 
   return (
     <>
@@ -44,6 +48,20 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+      <h2>My Pokedex</h2>
+      <div>
+      {selectedPokemon ? (
+          <>
+            <PokemonDetails pokemonName={selectedPokemon} />
+            <button onClick={() => selectPokemon(undefined)}>back</button>
+          </>
+        ) : (
+          <PokemonList onPokemonSelected={selectPokemon} />
+        )}
       </div>
       <div className="card">
         <button
@@ -88,9 +106,6 @@ function App() {
           </table>
         </div>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
