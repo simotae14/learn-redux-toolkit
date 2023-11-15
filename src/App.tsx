@@ -10,6 +10,7 @@ import PokemonDetails from './components/PokemonDetails';
 
 function App() {
   // grab current count from the store
+  /*
   const count = useAppSelector((state) => state.counter.value);
   const dispatch = useAppDispatch();
 
@@ -25,6 +26,7 @@ function App() {
   const handleClickAmountAdded = (amount: number) => {
     dispatch(amountAdded(amount));
   }
+  */
 
   const [selectedPokemon, selectPokemon] = React.useState(undefined);
 
@@ -39,7 +41,7 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
-      <div className="card">
+      {/* <div className="card">
         <button
           onClick={handleClick}
         >
@@ -48,10 +50,10 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-      </div>
-      <p className="read-the-docs">
+      </div> */}
+      {/* <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
       <h2>My Pokedex</h2>
       <div>
       {selectedPokemon ? (
@@ -63,7 +65,7 @@ function App() {
           <PokemonList onPokemonSelected={selectPokemon} />
         )}
       </div>
-      <div className="card">
+      {/* <div className="card">
         <button
           onClick={() => handleClickAmountAdded(amount)}
         >
@@ -105,7 +107,7 @@ function App() {
             </tbody>
           </table>
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

@@ -8,36 +8,35 @@ import './index.css'
 import { fakePokemonDetailData, fakePokemonListing } from './utils/fakeData.ts'
 import { createApi, ApiProvider } from '@reduxjs/toolkit/query/react'
 
+function simulateLoading() {
+  return new Promise((resolve) => setTimeout(resolve, 500));
+}
+
 const api = createApi({
   baseQuery: () => {},
-  endpoints: (builder) => ({
-    pokemonList: builder.query({
-      queryFn() {
-        return {
-          data: fakePokemonListing,
-        };
-      }
+  endpoints: (build) => ({
+    pokemonList: build.query({
+      async queryFn() {
+        await simulateLoading();
+        return { data: fakePokemonListing };
+      },
     }),
-    pokemonDetail: builder.query({
-      queryFn() {
-        return {
-          data: fakePokemonDetailData,
-        };
-      }
+    pokemonDetail: build.query({
+      async queryFn() {
+        await simulateLoading();
+        return { data: fakePokemonDetailData };
+      },
     }),
   }),
 });
 
 // it creates two hooks for us
-const { usePokemonListQuery, usePokemonDetailQuery } = api;
-
+export const { usePokemonListQuery, usePokemonDetailQuery } = api;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ApiProvider api={api}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+      <App />
     </ApiProvider>
   </React.StrictMode>,
 )
