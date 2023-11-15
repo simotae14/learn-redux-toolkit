@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { usePokemonDetailQuery } from '../main';
+import { usePokemonDetailQuery } from '../app/configure';
 
 const listFormatter = new Intl.ListFormat("en-GB", {
   style: "short",

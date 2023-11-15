@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { usePokemonListQuery } from '../main';
+import { usePokemonListQuery } from '../app/configure';
 
 export default function PokemonList({ onPokemonSelected }: {onPokemonSelected: (name: string) => void }) {
   const { isLoading, isError, data, isUninitialized } = usePokemonListQuery();
